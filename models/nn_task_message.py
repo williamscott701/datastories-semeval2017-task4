@@ -20,9 +20,9 @@ numpy.random.seed(1337)  # for reproducibility
 # correspond to the file "datastories.twitter.300d.txt"
 WV_CORPUS = "datastories.twitter"
 WV_DIM = 300
-
-# Flag that sets the training mode.
-# - if FINAL == False,  then the dataset will be split in {train, val, test}
+# g that sets the training mode.
+# - if
+# Fla FINAL == False,  then the dataset will be split in {train, val, test}
 # - if FINAL == True,   then the dataset will be split in {train, val}.
 # Even for training the model for the final submission a small percentage
 # of the labeled data will be kept for as a validation set for early stopping
