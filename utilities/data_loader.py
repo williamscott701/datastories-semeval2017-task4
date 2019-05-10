@@ -24,7 +24,7 @@ def prepare_dataset(X, y, pipeline, y_one_hot=True, y_as_is=False):
     except:
         pass
 
-    # X = pipeline.fit_transform(X)
+    X = pipeline.fit_transform(X)
 
     if y_as_is:
         try:
@@ -109,14 +109,10 @@ class Task4Loader:
     def __init__(self, word_indices, text_lengths, subtask="A", silver=False,
                  **kwargs):
 
-        print("A")
-
         self.word_indices = word_indices
 
         filter_classes = kwargs.get("filter_classes", None)
         self.y_one_hot = kwargs.get("y_one_hot", True)
-
-        print("B")
 
         self.pipeline = Pipeline([
             ('preprocess', CustomPreProcessor(TextPreProcessor(
@@ -137,7 +133,7 @@ class Task4Loader:
                                         add_tokens=(False,
                                                     True) if subtask != "A" else True,
                                         unk_policy="random"))])
-        print("C")
+
         # loading data
         print("Loading data...")
         dataset = SemEvalDataLoader(verbose=False).get_data(task=subtask,
@@ -145,7 +141,6 @@ class Task4Loader:
                                                             datasets=None,
                                                             only_semeval=True)
         random.Random(42).shuffle(dataset)
-        print("D")
 
         if filter_classes:
             dataset = [d for d in dataset if d[0] in filter_classes]
@@ -157,7 +152,6 @@ class Task4Loader:
         print("-------------------\ntraining set stats\n-------------------")
         print_dataset_statistics(self.y)
         print("-------------------")
-        print("F")
 
         if silver:
             print("Loading silver data...")
@@ -165,7 +159,6 @@ class Task4Loader:
             self.silver_X = [obs[1] for obs in dataset]
             self.silver_y = [obs[0] for obs in dataset]
             print("total observations:", len(self.silver_y))
-        print("G")
 
     def load_train_val_test(self, only_test=False):
         X_train, X_rest, y_train, y_rest = train_test_split(self.X, self.y,
